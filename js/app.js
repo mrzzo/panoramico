@@ -2,58 +2,101 @@
 // PANORÂMICO — App principal
 // =============================================
 
-const PREVIEW_LIMIT = 3  // assuntos mostrados na biblioteca antes de "ver tudo"
+const PREVIEW_LIMIT = 3
 
 let registro = {}
 let mapaAssuntos = {}
 
-// ---- INIT ----
+// =============================================
+// INIT
+// =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
   registro = construirRegistro()
   mapaAssuntos = construirMapaAssuntos()
-  mostrarPagina('home')
+
+  // Escuta mudanças de hash (botão voltar do navegador)
+  window.addEventListener('hashchange', () => lerHash())
+
+  // Lê o hash inicial ao carregar
+  lerHash()
 })
 
 // =============================================
-// ROTEADOR
+// ROTEADOR DE HASH
 // =============================================
 
-function mostrarPagina(id, titulo, voltarFn) {
+function lerHash() {
+  const hash = window.location.hash.replace('#', '').trim()
+  const partes = hash.split('/')
+
+  if (!hash || hash === 'home') {
+    _mostrarPagina('home')
+    return
+  }
+
+  if (hash === 'biblioteca') {
+    renderBiblioteca()
+    _mostrarPagina('biblioteca')
+    return
+  }
+
+  if (partes[0] === 'area' && partes[1]) {
+    _irAreaSemHash(partes[1])
+    return
+  }
+
+  if (partes[0] === 'assunto' && partes[1] && partes[2]) {
+    _irAssuntoSemHash(partes[1], partes[2])
+    return
+  }
+
+  // hash desconhecido → home
+  _mostrarPagina('home')
+}
+
+// Navegar atualizando a URL
+function irHome() {
+  window.location.hash = 'home'
+}
+
+function irBiblioteca() {
+  window.location.hash = 'biblioteca'
+}
+
+function irArea(areaId) {
+  window.location.hash = `area/${areaId}`
+}
+
+function irAssunto(areaId, assuntoId) {
+  window.location.hash = `assunto/${areaId}/${assuntoId}`
+}
+
+// =============================================
+// RENDERIZAÇÃO DAS PÁGINAS (sem alterar hash)
+// =============================================
+
+function _mostrarPagina(id, titulo, voltarFn) {
   document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'))
   document.getElementById('pag-' + id)?.classList.add('ativa')
   window.scrollTo(0, 0)
 
-  // navbar vs topbar
-  const comNav     = ['home', 'biblioteca']
-  const comTopbar  = ['area', 'assunto']
+  const comNav    = ['home', 'biblioteca']
+  const comTopbar = ['area', 'assunto']
 
-  document.getElementById('navbar').style.display    = comNav.includes(id)    ? 'flex' : 'none'
-  document.getElementById('topbar-wrap').style.display = comTopbar.includes(id) ? 'flex' : 'none'
+  document.getElementById('navbar').style.display       = comNav.includes(id)    ? 'flex' : 'none'
+  document.getElementById('topbar-wrap').style.display  = comTopbar.includes(id) ? 'flex' : 'none'
 
-  // highlight nav
   document.querySelectorAll('.nav-pill').forEach(b => b.classList.remove('ativo'))
   document.getElementById('nav-' + id)?.classList.add('ativo')
 
-  // topbar titulo
   if (comTopbar.includes(id)) {
     document.getElementById('topbar-titulo').textContent = titulo || ''
   }
 
-  // voltar
   if (voltarFn) {
     document.getElementById('topbar-voltar').onclick = voltarFn
   }
-}
-
-// =============================================
-// HOME
-// =============================================
-
-function irBiblioteca() {
-  renderBiblioteca()
-  mostrarPagina('biblioteca')
-  document.getElementById('nav-biblioteca').classList.add('ativo')
 }
 
 // =============================================
@@ -77,11 +120,8 @@ function renderBiblioteca() {
     grid.appendChild(btn)
   })
 
-  // preview: pegar primeiros assuntos de todas as áreas
   const previewEl = document.getElementById('bib-preview')
   previewEl.innerHTML = ''
-
-  // Mostrar preview apenas da primeira área como exemplo
   const primeiraArea = Object.values(registro)[0]
   renderPreviewArea(previewEl, primeiraArea)
 }
@@ -95,8 +135,7 @@ function renderPreviewArea(container, area) {
   `
   container.appendChild(header)
 
-  const lista = area.assuntos.slice(0, PREVIEW_LIMIT)
-  lista.forEach(a => {
+  area.assuntos.slice(0, PREVIEW_LIMIT).forEach(a => {
     container.appendChild(criarAssuntoRow(a, area.id))
   })
 
@@ -111,35 +150,26 @@ function renderPreviewArea(container, area) {
 }
 
 // =============================================
-// PÁGINA DA ÁREA
+// ÁREA
 // =============================================
 
-function irArea(areaId) {
+function _irAreaSemHash(areaId) {
   const area = registro[areaId]
-  if (!area) return
+  if (!area) { window.location.hash = 'biblioteca'; return }
+
+  document.getElementById('area-header-ic').textContent = area.icone
+  document.getElementById('area-header-nm').textContent = area.nome
+  document.getElementById('area-header-qt').textContent = `${area.assuntos.length} assuntos`
 
   const container = document.getElementById('area-lista')
   container.innerHTML = ''
+  area.assuntos.forEach(a => container.appendChild(criarAssuntoRow(a, areaId, true)))
 
-  // header
-  document.getElementById('area-header-ic').textContent  = area.icone
-  document.getElementById('area-header-nm').textContent  = area.nome
-  document.getElementById('area-header-qt').textContent  = `${area.assuntos.length} assuntos`
-
-  area.assuntos.forEach(a => {
-    container.appendChild(criarAssuntoRow(a, areaId, true))
-  })
-
-  mostrarPagina('area', area.nome, () => {
-    renderBiblioteca()
-    mostrarPagina('biblioteca')
-    document.getElementById('nav-biblioteca').classList.add('ativo')
-  })
+  _mostrarPagina('area', area.nome, () => irBiblioteca())
 }
 
 function criarAssuntoRow(assunto, areaId, full = false) {
   const visto = isVisto(`${areaId}/${assunto.id}`)
-  const data  = getDataVisto(`${areaId}/${assunto.id}`)
 
   const row = document.createElement('div')
   row.className = 'assunto-row'
@@ -159,43 +189,36 @@ function criarAssuntoRow(assunto, areaId, full = false) {
 }
 
 // =============================================
-// PÁGINA DO ASSUNTO
+// ASSUNTO
 // =============================================
 
 let simuladoState = {}
 
-function irAssunto(areaId, assuntoId) {
+function _irAssuntoSemHash(areaId, assuntoId) {
   const chave = `${areaId}/${assuntoId}`
   const dados = mapaAssuntos[chave]
   const area  = registro[areaId]
-  if (!dados) return
+  if (!dados) { window.location.hash = `area/${areaId}`; return }
 
-  // header
   document.getElementById('assunto-titulo').textContent = dados.nome
   document.getElementById('assunto-desc').textContent   = dados.descricao
+  document.getElementById('topbar-area-nome').textContent = area?.nome || ''
   renderAssuntoMeta(dados)
 
-  // conteúdo das tabs
   renderResumoRapido(dados)
   renderResumoDetalhado(dados)
   renderFlashcards(dados)
   renderSimulado(dados)
-
-  // botão visto
   atualizarBtnVisto(chave)
-
-  // ativar primeira tab
   ativarTab('rapido')
 
-  mostrarPagina('assunto', dados.nome, () => irArea(areaId))
-  document.getElementById('topbar-area-nome').textContent = area?.nome || ''
+  _mostrarPagina('assunto', dados.nome, () => irArea(areaId))
 }
 
 function renderAssuntoMeta(dados) {
   const visto = isVisto(`${dados.area}/${dados.id}`)
   const data  = getDataVisto(`${dados.area}/${dados.id}`)
-  const el = document.getElementById('assunto-meta')
-  el.innerHTML = `
+  document.getElementById('assunto-meta').innerHTML = `
     <span class="badge badge-${dados.nivel}">${dados.nivel}</span>
     ${visto ? `<span class="badge badge-visto">✓ visto em ${data}</span>` : ''}
   `
@@ -293,29 +316,21 @@ function renderSimulado(dados) {
     return
   }
 
-  // estado isolado por assunto
-  simuladoState = {
-    dados,
-    respostas: new Array(dados.simulado.length).fill(null)
-  }
+  simuladoState = { dados, respostas: new Array(dados.simulado.length).fill(null) }
 
-  // botão refazer
   const acoes = document.createElement('div')
   acoes.className = 'simulado-acoes'
   acoes.innerHTML = `<button class="btn-refazer" onclick="reiniciarSimulado()">↺ Refazer simulado</button>`
   el.appendChild(acoes)
 
-  // questões
+  const letras = ['A','B','C','D','E']
   dados.simulado.forEach((q, qi) => {
     const box = document.createElement('div')
     box.className = 'questao-box'
     box.id = `q-${qi}`
-
-    const letras = ['A','B','C','D','E']
     const alts = q.alternativas.map((alt, ai) =>
       `<button class="alt-btn" id="alt-${qi}-${ai}" onclick="responder(${qi},${ai})">${letras[ai]}) ${alt}</button>`
     ).join('')
-
     box.innerHTML = `
       <p class="q-num">Questão ${qi + 1} de ${dados.simulado.length}</p>
       <p class="q-txt">${q.pergunta}</p>
@@ -325,7 +340,6 @@ function renderSimulado(dados) {
     el.appendChild(box)
   })
 
-  // resultado
   const res = document.createElement('div')
   res.className = 'resultado-box'
   res.id = 'resultado'
@@ -342,28 +356,26 @@ function responder(qi, ai) {
   simuladoState.respostas[qi] = ai
 
   const q = simuladoState.dados.simulado[qi]
-  simuladoState.dados.simulado[qi].alternativas.forEach((_, i) => {
+  q.alternativas.forEach((_, i) => {
     const btn = document.getElementById(`alt-${qi}-${i}`)
     btn.disabled = true
-    if (i === q.correta) btn.classList.add('correta')
-    else if (i === ai)   btn.classList.add('errada')
+    if (i === q.correta)         btn.classList.add('correta')
+    else if (i === ai)           btn.classList.add('errada')
   })
   document.getElementById(`exp-${qi}`).classList.add('vis')
 
-  const total     = simuladoState.respostas.length
   const respostas = simuladoState.respostas
   if (respostas.every(r => r !== null)) {
     const acertos = respostas.filter((r, i) => r === simuladoState.dados.simulado[i].correta).length
-    const pct = Math.round(acertos / total * 100)
+    const pct = Math.round(acertos / respostas.length * 100)
     document.getElementById('res-nota').textContent = `${pct}%`
-    document.getElementById('res-txt').textContent  = `${acertos} de ${total} corretas`
+    document.getElementById('res-txt').textContent  = `${acertos} de ${respostas.length} corretas`
     document.getElementById('resultado').classList.add('vis')
   }
 }
 
 function reiniciarSimulado() {
-  if (!simuladoState.dados) return
-  renderSimulado(simuladoState.dados)
+  if (simuladoState.dados) renderSimulado(simuladoState.dados)
 }
 
 // ---- BOTÃO MARCAR VISTO ----
@@ -380,8 +392,6 @@ function atualizarBtnVisto(chave) {
     btn.onclick = () => {
       marcarVisto(chave)
       atualizarBtnVisto(chave)
-      // atualizar meta
-      const partes = chave.split('/')
       const dados = mapaAssuntos[chave]
       if (dados) renderAssuntoMeta(dados)
     }

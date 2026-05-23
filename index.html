@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c0c0e" />
+  <title>Panorâmico</title>
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+
+  <!-- ====================================================
+       NAVBAR — aparece em Home e Biblioteca
+       ==================================================== -->
+  <nav class="navbar" id="navbar">
+    <span class="nav-logo" onclick="mostrarPagina('home')">Panorâmico</span>
+    <button class="nav-pill" id="nav-home"       onclick="mostrarPagina('home')">Início</button>
+    <button class="nav-pill" id="nav-biblioteca" onclick="irBiblioteca()">Biblioteca</button>
+  </nav>
+
+  <!-- ====================================================
+       TOPBAR — aparece em Área e Assunto
+       ==================================================== -->
+  <div class="topbar" id="topbar-wrap" style="display:none">
+    <button class="topbar-voltar" id="topbar-voltar">‹</button>
+    <span class="topbar-titulo" id="topbar-titulo"></span>
+    <span class="topbar-area-nome" id="topbar-area-nome"></span>
+  </div>
+
+  <!-- ====================================================
+       PÁGINA: HOME
+       ==================================================== -->
+  <div class="pagina offset-nav" id="pag-home">
+
+    <section class="home-hero">
+      <span class="home-badge">🚧 Protótipo</span>
+      <h1 class="home-titulo">Panorâmico</h1>
+      <p class="home-sub">Resumos, flashcards e simulados para ENEM e faculdade — tudo organizado num só lugar.</p>
+      <p class="home-proto">Este é um protótipo em desenvolvimento. O conteúdo é fixo e foi escrito manualmente. Em breve, a IA vai gerar os resumos automaticamente.</p>
+      <button class="btn-cta" onclick="irBiblioteca()">Explorar biblioteca →</button>
+    </section>
+
+    <section class="home-cards">
+      <div class="home-card">
+        <div class="ic">📚</div>
+        <h3>Dois níveis de resumo</h3>
+        <p>Rápido para revisar, detalhado para aprender do zero.</p>
+      </div>
+      <div class="home-card">
+        <div class="ic">🃏</div>
+        <h3>Flashcards</h3>
+        <p>Cartões de pergunta e resposta para revisão ativa.</p>
+      </div>
+      <div class="home-card">
+        <div class="ic">✏️</div>
+        <h3>Simulados</h3>
+        <p>Questões estilo ENEM com gabarito comentado.</p>
+      </div>
+      <div class="home-card">
+        <div class="ic">🔗</div>
+        <h3>Assuntos conectados</h3>
+        <p>Cada tema linka com conteúdos relacionados.</p>
+      </div>
+      <div class="home-card">
+        <div class="ic">✅</div>
+        <h3>Rastreie o progresso</h3>
+        <p>Marque o que já estudou e veja a data.</p>
+      </div>
+      <div class="home-card">
+        <div class="ic">▶️</div>
+        <h3>Videoaulas</h3>
+        <p>Links para complementar cada assunto.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ====================================================
+       PÁGINA: BIBLIOTECA
+       ==================================================== -->
+  <div class="pagina offset-nav" id="pag-biblioteca">
+    <div class="bib-wrap">
+      <h1 class="page-titulo">Biblioteca</h1>
+      <p class="page-sub">Selecione uma área ou um assunto para começar</p>
+
+      <div class="areas-grid" id="bib-areas-grid"></div>
+
+      <div class="assuntos-preview" id="bib-preview"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       PÁGINA: ÁREA (todos os assuntos de uma área)
+       ==================================================== -->
+  <div class="pagina offset-topbar" id="pag-area">
+    <div class="area-wrap">
+      <div class="area-header">
+        <span class="area-ic-big" id="area-header-ic"></span>
+        <div>
+          <div class="area-nm-big" id="area-header-nm"></div>
+          <div class="area-qt-big" id="area-header-qt"></div>
+        </div>
+      </div>
+      <div id="area-lista"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       PÁGINA: ASSUNTO
+       ==================================================== -->
+  <div class="pagina offset-topbar" id="pag-assunto">
+    <div class="assunto-wrap">
+
+      <div class="assunto-header">
+        <h1 class="assunto-titulo" id="assunto-titulo"></h1>
+        <p class="assunto-desc"    id="assunto-desc"></p>
+        <div class="assunto-meta"  id="assunto-meta"></div>
+      </div>
+
+      <div class="tabs-wrap">
+        <button class="tab-btn" id="tab-btn-rapido"     onclick="ativarTab('rapido')">Resumo rápido</button>
+        <button class="tab-btn" id="tab-btn-detalhado"  onclick="ativarTab('detalhado')">Detalhado</button>
+        <button class="tab-btn" id="tab-btn-flashcards" onclick="ativarTab('flashcards')">Flashcards</button>
+        <button class="tab-btn" id="tab-btn-simulado"   onclick="ativarTab('simulado')">Simulado</button>
+      </div>
+
+      <div class="tab-painel" id="tab-rapido"></div>
+      <div class="tab-painel" id="tab-detalhado"></div>
+      <div class="tab-painel" id="tab-flashcards"></div>
+      <div class="tab-painel" id="tab-simulado"></div>
+
+      <button class="btn-visto" id="btn-visto">✓ Marcar como visto</button>
+
+    </div>
+  </div>
+
+  <!-- ====================================================
+       SCRIPTS — ordem importa!
+       Area indexes primeiro, depois assuntos, depois registro
+       ==================================================== -->
+
+  <!-- Índices das áreas -->
+  <script src="data/matematica/index.js"></script>
+  <script src="data/ciencias_natureza/index.js"></script>
+  <script src="data/historia/index.js"></script>
+
+  <!-- Assuntos — Matemática -->
+  <script src="data/matematica/trigonometria.js"></script>
+  <script src="data/matematica/geometria-plana.js"></script>
+  <script src="data/matematica/funcoes.js"></script>
+
+  <!-- Assuntos — Ciências da Natureza -->
+  <script src="data/ciencias_natureza/celula.js"></script>
+  <script src="data/ciencias_natureza/genetica.js"></script>
+
+  <!-- Assuntos — História -->
+  <script src="data/historia/matematica-antiga.js"></script>
+  <script src="data/historia/revolucao-francesa.js"></script>
+
+  <!-- Registro central (usa os objetos acima) -->
+  <script src="data/registro.js"></script>
+
+  <!-- Lógica -->
+  <script src="js/progresso.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

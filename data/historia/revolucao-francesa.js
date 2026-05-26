@@ -1,3 +1,12 @@
+// =============================================
+// ASSUNTO: Revolução Francesa
+// Área: História
+// =============================================
+// Blocos: titulo | paragrafo | imagem | video
+// flashcards: { pergunta, resposta }
+// simulado:   { contexto, pergunta, alternativas, correta, explicacao }
+// =============================================
+
 const ASSUNTO_REVOLUCAO_FRANCESA = {
   id: "revolucao-francesa",
   area: "historia",
@@ -7,51 +16,39 @@ const ASSUNTO_REVOLUCAO_FRANCESA = {
 
   resumoRapido: `A Revolução Francesa (1789–1799) foi um dos maiores eventos da história moderna.
 
-Causas principais:
-• Crise financeira da monarquia francesa
-• Desigualdade entre os três estados (clero, nobreza, povo)
-• Influência do Iluminismo e da Revolução Americana
+Causas:
+• Crise financeira da monarquia
+• Desigualdade entre os três estados
+• Influência do Iluminismo
 
 Fases:
 1. Monarquia Constitucional (1789–1792)
-2. Convenção Nacional / Terror (1792–1795)
+2. Convenção / Terror (1792–1795)
 3. Diretório (1795–1799)
 
 Legado: "Liberdade, Igualdade, Fraternidade"`,
 
   resumoDetalhado: [
-    {
-      titulo: "Contexto e causas",
-      conteudo: `A França pré-revolucionária vivia sob o Antigo Regime, com a sociedade dividida em três estados:
+    { tipo: "titulo",    conteudo: "O Antigo Regime e as causas" },
+    { tipo: "paragrafo", conteudo: "A França era dividida em três estados:\n• 1º Estado: clero (isento de impostos)\n• 2º Estado: nobreza (isenta de impostos)\n• 3º Estado: 97% da população — pagavam todos os impostos\n\nA crise financeira após guerras e colheitas ruins criou uma explosão social. O Iluminismo forneceu as ideias: razão, direitos naturais, soberania popular." },
+    { tipo: "imagem",    conteudo: "French Revolution three estates social structure Ancien Regime" },
 
-• 1º Estado: clero (isento de impostos)
-• 2º Estado: nobreza (isenta de impostos)
-• 3º Estado: todos os outros — 97% da população — pagavam todos os impostos
+    { tipo: "titulo",    conteudo: "Os eventos de 1789" },
+    { tipo: "paragrafo", conteudo: "• Maio 1789: Convocação dos Estados Gerais por Luís XVI\n• Junho 1789: Terceiro Estado forma a Assembleia Nacional\n• 14 de julho 1789: Queda da Bastilha\n• Agosto 1789: Declaração dos Direitos do Homem e do Cidadão\n• Outubro 1789: Marcha das mulheres a Versalhes" },
+    { tipo: "video",     conteudo: "https://www.youtube.com/embed/5fJl_ZX91l0" },
 
-A crise financeira após guerras custosas (incluindo apoio à Revolução Americana) e colheitas ruins criaram uma explosão social.
+    { tipo: "titulo",    conteudo: "O Terror e o fim da Revolução" },
+    { tipo: "paragrafo", conteudo: "1792–1795 — Fase mais radical:\n• Proclamação da República\n• Execução de Luís XVI (1793)\n• Robespierre lidera o Comitê de Salvação Pública\n• Guilhotina executa mais de 17.000 pessoas\n• Queda de Robespierre (Termidor, 1794)\n\n1799 — Golpe de 18 Brumário:\nNapoleão Bonaparte encerra a Revolução e torna-se Cônsul." },
+    { tipo: "imagem",    conteudo: "Storming of the Bastille 1789 French Revolution painting" },
+  ],
 
-O Iluminismo forneceu as ideias: razão, direitos naturais, soberania popular.`
-    },
-    {
-      titulo: "Os principais eventos de 1789",
-      conteudo: `• Maio 1789: Convocação dos Estados Gerais por Luís XVI
-• Junho 1789: Terceiro Estado forma a Assembleia Nacional Constituinte
-• 14 de julho 1789: Queda da Bastilha — símbolo do absolutismo
-• Agosto 1789: Declaração dos Direitos do Homem e do Cidadão
-• Outubro 1789: Marcha das mulheres a Versalhes — família real levada a Paris`
-    },
-    {
-      titulo: "O Terror e Napoleão",
-      conteudo: `1792–1795 — A fase mais radical:
-• Proclamação da República
-• Execução de Luís XVI (1793)
-• Robespierre lidera o Comitê de Salvação Pública
-• Guilhotina executa mais de 17.000 pessoas
-• Queda de Robespierre (Termidor, 1794)
-
-1799 — Golpe de 18 Brumário:
-Napoleão Bonaparte encerra a Revolução e torna-se Cônsul, iniciando o período napoleônico.`
-    }
+  flashcards: [
+    { pergunta: "O que simbolizava a Bastilha?",                          resposta: "O poder absoluto da monarquia — era uma prisão estatal símbolo do absolutismo." },
+    { pergunta: "Quais eram os três estados do Antigo Regime?",           resposta: "1º Estado: clero | 2º Estado: nobreza | 3º Estado: todos os outros (97% da população)." },
+    { pergunta: "Qual foi o papel do Iluminismo na Revolução?",           resposta: "Forneceu as ideias de razão, direitos naturais e soberania popular que inspiraram os revolucionários." },
+    { pergunta: "O que foi o período do Terror?",                         resposta: "Fase radical liderada por Robespierre (1793–1794) com execuções em massa pela guilhotina." },
+    { pergunta: "Quem encerrou a Revolução Francesa?",                    resposta: "Napoleão Bonaparte, com o golpe de 18 Brumário em 1799." },
+    { pergunta: "O que é a Declaração dos Direitos do Homem (1789)?",     resposta: "Documento que proclamou liberdade, igualdade e direitos naturais — base dos direitos humanos modernos." },
   ],
 
   relacionados: [],
@@ -62,16 +59,23 @@ Napoleão Bonaparte encerra a Revolução e torna-se Cônsul, iniciando o perío
 
   simulado: [
     {
-      pergunta: "A queda da Bastilha, em 14 de julho de 1789, é considerada o marco inicial da Revolução Francesa pois a Bastilha simbolizava:",
-      alternativas: ["A pobreza do povo", "O poder absoluto da monarquia", "A Igreja Católica", "O poder da nobreza rural"],
-      correta: 1,
-      explicacao: "A Bastilha era uma prisão estatal que simbolizava o absolutismo e a opressão da monarquia francesa. Sua queda representou a ruptura com o Antigo Regime."
+      contexto: "\"Todos os homens nascem e permanecem livres e iguais em direitos. As distinções sociais só podem ser fundadas na utilidade comum.\" — Declaração dos Direitos do Homem e do Cidadão, 1789.",
+      pergunta: "Esse documento, elaborado durante a Revolução Francesa, reflete principalmente os ideais de qual corrente filosófica do século XVIII?",
+      alternativas: ["Mercantilismo", "Absolutismo monárquico", "Iluminismo", "Positivismo"],
+      correta: 2,
+      explicacao: "A Declaração reflete o Iluminismo, que pregava a razão, os direitos naturais e a igualdade entre os homens. Filósofos como Locke, Rousseau e Voltaire influenciaram diretamente os revolucionários."
     },
     {
-      pergunta: "O lema da Revolução Francesa — 'Liberdade, Igualdade, Fraternidade' — reflete principalmente as ideias de qual corrente de pensamento?",
-      alternativas: ["Mercantilismo", "Absolutismo", "Iluminismo", "Feudalismo"],
-      correta: 2,
-      explicacao: "O Iluminismo defendia a razão, os direitos naturais e a igualdade entre os homens. Seus filósofos (Locke, Rousseau, Voltaire) influenciaram diretamente os revolucionários franceses."
-    }
+      contexto: "A Revolução Francesa dividiu a sociedade em fases distintas. Entre 1793 e 1794, o Comitê de Salvação Pública, liderado por Maximilien Robespierre, executou milhares de pessoas suspeitas de traição à República. Esse período ficou conhecido como o 'Terror'.",
+      pergunta: "O período do Terror revela uma contradição central da Revolução Francesa porque:",
+      alternativas: [
+        "Restaurou os privilégios da nobreza e do clero",
+        "Um movimento que pregava liberdade e igualdade passou a suprimir violentamente os direitos individuais",
+        "Napoleão assumiu o poder durante o Terror",
+        "A guilhotina foi criada pelos revolucionários para punir os pobres"
+      ],
+      correta: 1,
+      explicacao: "O Terror é uma das contradições da Revolução: um movimento que prometia Liberdade, Igualdade e Fraternidade passou a executar sumariamente suspeitos, mostrando como revoluções podem descambar para o autoritarismo."
+    },
   ]
 }

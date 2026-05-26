@@ -1,5 +1,53 @@
-// Matemática > Trigonometria
-// Um arquivo por assunto — edite aqui para atualizar o conteúdo
+// =============================================
+// ASSUNTO: Trigonometria
+// Área: Matemática
+// =============================================
+// Como preencher este arquivo:
+//
+// id:          identificador único do assunto (sem espaços, use hífen)
+// area:        id da área pai (deve bater com o index.js da área)
+// nome:        nome exibido na interface
+// nivel:       "basico" | "medio" | "avancado"
+// descricao:   frase curta exibida nos cards da biblioteca
+//
+// resumoRapido:
+//   Texto corrido exibido na tab "Resumo rápido".
+//   Use \n para quebras de linha.
+//
+// resumoDetalhado: [ ... ]
+//   Array de blocos de conteúdo. Cada bloco pode ser:
+//
+//   { tipo: "titulo",    conteudo: "Texto do título da seção" }
+//   { tipo: "paragrafo", conteudo: "Texto explicativo..." }
+//   { tipo: "imagem",    conteudo: "query de busca para o Google Imagens" }
+//     → o app busca e exibe uma imagem ilustrativa
+//   { tipo: "video",     conteudo: "URL do YouTube (embed)" }
+//     → embed do vídeo direto no meio do conteúdo
+//
+// flashcards: [ ... ]
+//   Perguntas de revisão conceitual — SEPARADAS do simulado.
+//   Formato: { pergunta: "...", resposta: "..." }
+//   Cadastre 6–12 cards por assunto. O app sorteia 5 por sessão.
+//
+// relacionados: [ ... ]
+//   Links para outros assuntos do site.
+//   Formato: { area: "id_area", id: "id_assunto", nome: "Nome", motivo: "Por que está relacionado" }
+//
+// videoaulas: [ ... ]
+//   Links de videoaulas exibidos no final do resumo detalhado.
+//   Formato: { titulo: "...", url: "https://..." }
+//
+// simulado: [ ... ]
+//   Questões no estilo ENEM: contextualização + pergunta + alternativas.
+//   Formato:
+//   {
+//     contexto:      "Texto de contextualização (situação, dado, citação)",
+//     pergunta:      "A pergunta em si",
+//     alternativas:  ["A", "B", "C", "D"],
+//     correta:       índice da alternativa correta (0 = A),
+//     explicacao:    "Explicação do gabarito"
+//   }
+// =============================================
 
 const ASSUNTO_TRIGONOMETRIA = {
   id: "trigonometria",
@@ -22,76 +70,65 @@ Valores mais cobrados no ENEM:
 • sen(90°) = 1 | cos(90°) = 0`,
 
   resumoDetalhado: [
-    {
-      titulo: "O que é Trigonometria?",
-      conteudo: `A trigonometria nasceu da necessidade de medir distâncias e ângulos inacessíveis — como a altura de uma montanha ou a distância até uma estrela.
+    { tipo: "titulo",    conteudo: "O que é Trigonometria?" },
+    { tipo: "paragrafo", conteudo: "A trigonometria nasceu da necessidade de medir distâncias e ângulos inacessíveis — como a altura de uma montanha ou a distância até uma estrela. A palavra vem do grego: \"trigonon\" (triângulo) + \"metron\" (medida). Hoje é usada em engenharia, física, arquitetura e computação gráfica." },
+    { tipo: "imagem",    conteudo: "right triangle trigonometry diagram labeled sides" },
 
-A palavra vem do grego: "trigonon" (triângulo) + "metron" (medida). Hoje é usada em engenharia, física, arquitetura e computação gráfica.`
-    },
-    {
-      titulo: "As três razões fundamentais",
-      conteudo: `No triângulo retângulo, para um ângulo θ:
+    { tipo: "titulo",    conteudo: "As três razões fundamentais" },
+    { tipo: "paragrafo", conteudo: "No triângulo retângulo, para um ângulo θ:\n\n• Seno (sen θ) = cateto oposto ÷ hipotenusa\n• Cosseno (cos θ) = cateto adjacente ÷ hipotenusa\n• Tangente (tg θ) = cateto oposto ÷ cateto adjacente\n\nMacete SOH-CAH-TOA:\nS = O/H | C = A/H | T = O/A" },
 
-• Seno (sen θ) = cateto oposto ÷ hipotenusa
-• Cosseno (cos θ) = cateto adjacente ÷ hipotenusa
-• Tangente (tg θ) = cateto oposto ÷ cateto adjacente
+    { tipo: "titulo",    conteudo: "Tabela de valores notáveis" },
+    { tipo: "paragrafo", conteudo: "Ângulo | Seno   | Cosseno | Tangente\n0°     | 0      | 1       | 0\n30°    | 1/2    | √3/2    | √3/3\n45°    | √2/2   | √2/2    | 1\n60°    | √3/2   | 1/2     | √3\n90°    | 1      | 0       | —" },
+    { tipo: "video",     conteudo: "https://www.youtube.com/embed/T9lt6MZKLck" },
 
-Macete SOH-CAH-TOA:
-S = O/H | C = A/H | T = O/A`
-    },
-    {
-      titulo: "Tabela de valores notáveis",
-      conteudo: `Ângulo | Seno   | Cosseno | Tangente
-0°     | 0      | 1       | 0
-30°    | 1/2    | √3/2    | √3/3
-45°    | √2/2   | √2/2    | 1
-60°    | √3/2   | 1/2     | √3
-90°    | 1      | 0       | —`
-    },
-    {
-      titulo: "Identidade fundamental",
-      conteudo: `A relação mais importante da trigonometria:
+    { tipo: "titulo",    conteudo: "Identidade fundamental" },
+    { tipo: "paragrafo", conteudo: "A relação mais importante da trigonometria:\n\nsen²θ + cos²θ = 1\n\nIsso vale para qualquer ângulo. Dela derivam outras identidades usadas para simplificar expressões em provas." },
+  ],
 
-sen²θ + cos²θ = 1
-
-Isso vale para qualquer ângulo. Dela derivam outras identidades usadas para simplificar expressões em provas.`
-    }
+  flashcards: [
+    { pergunta: "O que é o seno de um ângulo?",                      resposta: "Razão entre o cateto oposto e a hipotenusa no triângulo retângulo." },
+    { pergunta: "O que é o cosseno de um ângulo?",                   resposta: "Razão entre o cateto adjacente e a hipotenusa no triângulo retângulo." },
+    { pergunta: "O que é a tangente de um ângulo?",                  resposta: "Razão entre o cateto oposto e o cateto adjacente." },
+    { pergunta: "Qual o macete SOH-CAH-TOA?",                        resposta: "Seno = Oposto/Hipotenusa | Cosseno = Adjacente/Hipotenusa | Tangente = Oposto/Adjacente" },
+    { pergunta: "Qual a identidade trigonométrica fundamental?",      resposta: "sen²θ + cos²θ = 1" },
+    { pergunta: "Quanto vale sen(30°)?",                             resposta: "1/2 = 0,5" },
+    { pergunta: "Quanto vale cos(60°)?",                             resposta: "1/2 = 0,5" },
+    { pergunta: "Quanto vale tg(45°)?",                              resposta: "1" },
+    { pergunta: "Quanto vale sen(90°)?",                             resposta: "1" },
+    { pergunta: "Para que serve a trigonometria na prática?",         resposta: "Medir distâncias e ângulos inacessíveis, usado em engenharia, física, arquitetura e computação gráfica." },
   ],
 
   relacionados: [
     { area: "matematica", id: "geometria-plana", nome: "Geometria Plana", motivo: "Base para entender triângulos" },
-    { area: "historia", id: "matematica-antiga", nome: "Contexto histórico da Matemática", motivo: "Origem da trigonometria" }
+    { area: "historia",   id: "matematica-antiga", nome: "Contexto histórico da Matemática", motivo: "Origem da trigonometria" }
   ],
 
   videoaulas: [
     { titulo: "Trigonometria do zero — ENEM", url: "https://www.youtube.com/results?search_query=trigonometria+enem+resumo" },
-    { titulo: "Valores notáveis — macetes", url: "https://www.youtube.com/results?search_query=valores+notaveis+trigonometria" }
+    { titulo: "Valores notáveis — macetes",   url: "https://www.youtube.com/results?search_query=valores+notaveis+trigonometria" }
   ],
 
   simulado: [
     {
-      pergunta: "Em um triângulo retângulo, o cateto oposto a um ângulo de 30° mede 5 cm. Qual é a hipotenusa?",
-      alternativas: ["5 cm", "10 cm", "5√3 cm", "5√2 cm"],
+      contexto: "Na construção de uma rampa de acessibilidade, um engenheiro precisa garantir que o ângulo de inclinação seja de 30° em relação ao solo. O comprimento da rampa (hipotenusa) foi medido em 4 metros.",
+      pergunta: "Qual é a altura que a rampa atinge em relação ao solo?",
+      alternativas: ["1 m", "2 m", "2√3 m", "4√3 m"],
       correta: 1,
-      explicacao: "sen(30°) = 1/2. Como sen(30°) = cateto oposto / hipotenusa → 1/2 = 5/h → h = 10 cm."
+      explicacao: "sen(30°) = altura / hipotenusa → 1/2 = altura / 4 → altura = 2 m."
     },
     {
-      pergunta: "Qual é o valor de sen²(45°) + cos²(45°)?",
-      alternativas: ["0", "√2", "1", "2"],
-      correta: 2,
-      explicacao: "Pela identidade fundamental, sen²θ + cos²θ = 1 para qualquer ângulo θ."
+      contexto: "Durante uma aula de física, a professora afirma que o movimento de uma onda sonora pode ser descrito por uma função trigonométrica. Ela escreve no quadro a identidade fundamental da trigonometria.",
+      pergunta: "Qual das alternativas representa corretamente essa identidade, válida para qualquer ângulo θ?",
+      alternativas: ["sen(θ) + cos(θ) = 1", "sen²(θ) + cos²(θ) = 1", "sen²(θ) - cos²(θ) = 1", "sen(θ) × cos(θ) = 1"],
+      correta: 1,
+      explicacao: "A identidade fundamental é sen²θ + cos²θ = 1, que decorre diretamente do Teorema de Pitágoras aplicado ao triângulo retângulo unitário."
     },
     {
-      pergunta: "A tangente de 60° é igual a:",
-      alternativas: ["1", "√2/2", "√3/3", "√3"],
-      correta: 3,
-      explicacao: "tg(60°) = sen(60°)/cos(60°) = (√3/2)/(1/2) = √3."
+      contexto: "Um topógrafo posicionado a 50 metros de distância horizontal de uma árvore mede um ângulo de elevação de 60° até o topo da árvore.",
+      pergunta: "Considerando tg(60°) = √3 ≈ 1,73, qual é a altura aproximada da árvore?",
+      alternativas: ["50 m", "86,5 m", "28,9 m", "100 m"],
+      correta: 1,
+      explicacao: "tg(60°) = altura / distância → √3 = altura / 50 → altura = 50√3 ≈ 50 × 1,73 = 86,5 m."
     },
-    {
-      pergunta: "Se cos(θ) = 3/5, qual é o valor de sen(θ) em um triângulo retângulo?",
-      alternativas: ["4/5", "3/4", "5/3", "1/5"],
-      correta: 0,
-      explicacao: "Pela identidade: sen²θ = 1 - cos²θ = 1 - 9/25 = 16/25. Logo sen(θ) = 4/5."
-    }
   ]
 }

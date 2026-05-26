@@ -1,3 +1,17 @@
+// =============================================
+// ASSUNTO: A Célula
+// Área: Ciências da Natureza
+// =============================================
+// Blocos do resumoDetalhado:
+//   { tipo: "titulo",    conteudo: "..." }
+//   { tipo: "paragrafo", conteudo: "..." }
+//   { tipo: "imagem",    conteudo: "query Google Imagens" }
+//   { tipo: "video",     conteudo: "URL embed YouTube" }
+//
+// flashcards: { pergunta, resposta } — conceituais, separados do simulado
+// simulado:   { contexto, pergunta, alternativas, correta, explicacao }
+// =============================================
+
 const ASSUNTO_CELULA = {
   id: "celula",
   area: "ciencias_natureza",
@@ -8,55 +22,38 @@ const ASSUNTO_CELULA = {
   resumoRapido: `A célula é a menor unidade estrutural e funcional dos seres vivos.
 
 Dois tipos principais:
-• Procariótica: sem núcleo definido (bactérias e arqueas)
-• Eucariótica: com núcleo envolvido por membrana (animais, plantas, fungos)
+• Procariótica: sem núcleo definido (bactérias)
+• Eucariótica: com núcleo membranoso (animais, plantas, fungos)
 
 Organelas principais:
 • Núcleo: contém o DNA, controla a célula
 • Mitocôndria: produz energia (ATP)
 • Ribossomo: síntese de proteínas
-• Membrana plasmática: controla entrada e saída de substâncias`,
+• Membrana plasmática: controla entrada/saída`,
 
   resumoDetalhado: [
-    {
-      titulo: "Células procarióticas e eucarióticas",
-      conteudo: `Procarióticas (pro = antes, karyon = núcleo):
-• Sem núcleo definido — DNA fica livre no citoplasma
-• Sem organelas membranosas
-• Menores e mais simples
-• Exemplos: bactérias e arqueas
+    { tipo: "titulo",    conteudo: "Procariótica vs Eucariótica" },
+    { tipo: "paragrafo", conteudo: "Procarióticas (pro = antes, karyon = núcleo):\n• Sem núcleo definido — DNA livre no citoplasma\n• Sem organelas membranosas\n• Menores e mais simples\n• Exemplos: bactérias e arqueas\n\nEucarióticas:\n• Núcleo com membrana (carioteca)\n• Possuem organelas membranosas\n• Maiores e mais complexas\n• Exemplos: células animais, vegetais, fungos" },
+    { tipo: "imagem",    conteudo: "prokaryotic vs eukaryotic cell comparison diagram" },
 
-Eucarióticas:
-• Núcleo com membrana nuclear (carioteca)
-• Possuem organelas membranosas
-• Maiores e mais complexas
-• Exemplos: células animais, vegetais, fungos`
-    },
-    {
-      titulo: "Principais organelas e suas funções",
-      conteudo: `• Núcleo: armazena o DNA, controla as atividades celulares
-• Mitocôndria: realiza respiração celular, produz ATP (energia)
-• Ribossomo: sintetiza proteínas (presente em todas as células)
-• Retículo Endoplasmático Rugoso (RER): produção e transporte de proteínas
-• Retículo Endoplasmático Liso (REL): síntese de lipídios
-• Complexo de Golgi: processa e empacota proteínas para exportação
-• Lisossomo: digestão intracelular (só em células animais)
-• Cloroplasto: realiza fotossíntese (só em células vegetais)
-• Vacúolo: armazenamento; grande em células vegetais`
-    },
-    {
-      titulo: "Membrana plasmática",
-      conteudo: `Estrutura: bicamada fosfolipídica com proteínas (Modelo do Mosaico Fluido)
+    { tipo: "titulo",    conteudo: "Principais organelas e funções" },
+    { tipo: "paragrafo", conteudo: "• Núcleo: armazena o DNA, controla a célula\n• Mitocôndria: respiração celular → produz ATP\n• Ribossomo: síntese de proteínas\n• Retículo Endoplasmático Rugoso: produção de proteínas\n• Retículo Endoplasmático Liso: síntese de lipídios\n• Complexo de Golgi: processa e empacota proteínas\n• Lisossomo: digestão intracelular (só animais)\n• Cloroplasto: fotossíntese (só vegetais)\n• Vacúolo: armazenamento" },
+    { tipo: "video",     conteudo: "https://www.youtube.com/embed/8IlzKri08kk" },
 
-Funções:
-• Separar o interior da célula do ambiente externo
-• Controlar o transporte de substâncias
-• Reconhecimento celular
+    { tipo: "titulo",    conteudo: "Membrana plasmática" },
+    { tipo: "paragrafo", conteudo: "Estrutura: bicamada fosfolipídica com proteínas (Modelo do Mosaico Fluido)\n\nFunções:\n• Separar o interior da célula do ambiente\n• Controlar transporte de substâncias\n• Reconhecimento celular\n\nTransporte passivo: sem energia (difusão, osmose)\nTransporte ativo: com energia (bomba de sódio e potássio)" },
+    { tipo: "imagem",    conteudo: "cell membrane phospholipid bilayer fluid mosaic model" },
+  ],
 
-Tipos de transporte:
-• Passivo: sem gasto de energia (difusão, osmose)
-• Ativo: com gasto de energia (bomba de sódio e potássio)`
-    }
+  flashcards: [
+    { pergunta: "Qual é a função da mitocôndria?",                         resposta: "Realizar a respiração celular e produzir ATP (energia para a célula)." },
+    { pergunta: "Qual é a diferença entre célula procariótica e eucariótica?", resposta: "Procariótica não tem núcleo definido (DNA livre). Eucariótica tem núcleo com membrana." },
+    { pergunta: "Qual organela realiza a síntese de proteínas?",            resposta: "O ribossomo." },
+    { pergunta: "O que é o Complexo de Golgi?",                            resposta: "Organela que processa, empacota e distribui proteínas produzidas pelo retículo." },
+    { pergunta: "Qual organela realiza a fotossíntese?",                    resposta: "O cloroplasto — presente apenas em células vegetais e algas." },
+    { pergunta: "O que é transporte ativo?",                               resposta: "Transporte de substâncias contra o gradiente de concentração, com gasto de energia (ATP)." },
+    { pergunta: "Onde fica o DNA nas células eucarióticas?",               resposta: "Dentro do núcleo, envolvido pela carioteca (membrana nuclear)." },
+    { pergunta: "Para que servem os lisossomos?",                          resposta: "Digestão intracelular — destroem substâncias e organelas desgastadas." },
   ],
 
   relacionados: [
@@ -69,22 +66,18 @@ Tipos de transporte:
 
   simulado: [
     {
-      pergunta: "Qual organela é responsável pela produção de energia (ATP) na célula?",
-      alternativas: ["Ribossomo", "Núcleo", "Mitocôndria", "Vacúolo"],
-      correta: 2,
-      explicacao: "A mitocôndria realiza a respiração celular aeróbica, produzindo ATP — a principal moeda energética da célula."
-    },
-    {
-      pergunta: "Uma célula sem núcleo definido, com DNA livre no citoplasma, é classificada como:",
-      alternativas: ["Eucariótica", "Procariótica", "Vegetal", "Animal"],
+      contexto: "Em 2020, durante a pandemia de COVID-19, muito se discutiu sobre a diferença entre vírus e bactérias. Os vírus não possuem células próprias — eles invadem células do hospedeiro para se reproduzir. Já as bactérias são organismos unicelulares com organização celular própria.",
+      pergunta: "Com base na organização celular, as bactérias são classificadas como organismos procarióticos porque:",
+      alternativas: ["Possuem núcleo com membrana e várias organelas", "Não possuem núcleo definido, com DNA livre no citoplasma", "São acelulares e dependem de hospedeiro", "Possuem mitocôndrias e cloroplastos"],
       correta: 1,
-      explicacao: "Células procarióticas não possuem núcleo delimitado por membrana. São características de bactérias e arqueas."
+      explicacao: "Bactérias são procarióticas: não possuem núcleo delimitado por membrana. Seu DNA fica livre no citoplasma. Isso as diferencia das células eucarióticas (animais, plantas, fungos)."
     },
     {
-      pergunta: "O cloroplasto é uma organela presente exclusivamente em:",
-      alternativas: ["Células animais", "Bactérias", "Células vegetais", "Fungos"],
+      contexto: "Um pesquisador analisa ao microscópio eletrônico uma célula desconhecida e observa: presença de núcleo com membrana, mitocôndrias, retículo endoplasmático e ausência de cloroplastos e parede celular.",
+      pergunta: "Essas características indicam que a célula analisada é provavelmente:",
+      alternativas: ["Uma bactéria", "Uma célula vegetal", "Uma célula animal", "Uma arquea"],
       correta: 2,
-      explicacao: "Os cloroplastos contêm clorofila e realizam a fotossíntese. Estão presentes apenas em células vegetais e algas."
-    }
+      explicacao: "Núcleo com membrana → eucariótica. Ausência de cloroplasto e parede celular → não é vegetal. Presença de mitocôndrias → célula animal eucariótica."
+    },
   ]
 }

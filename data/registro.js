@@ -10,6 +10,7 @@ function construirRegistro() {
     matematica: MATEMATICA,
     ciencias_natureza: CIENCIAS_NATUREZA,
     historia: HISTORIA,
+    nocoes_de_manutencao_mecanica: NOCOES_DE_MANUTENCAO_MECANICA,
   }
 }
 
@@ -23,5 +24,8 @@ function construirMapaAssuntos() {
   mapa["ciencias_natureza/genetica"]        = ASSUNTO_GENETICA
   mapa["historia/matematica-antiga"]        = ASSUNTO_MATEMATICA_ANTIGA
   mapa["historia/revolucao-francesa"]       = ASSUNTO_REVOLUCAO_FRANCESA
+  mapa["nocoes_de_manutencao_mecanica/lubrificacao-industrial"]       = ASSUNTO_LUBRIFICACAO_INDUSTRIAL
   return mapa
 }
+//Noções de Manutenção Mecânica
+//Lubrifiação Industrial

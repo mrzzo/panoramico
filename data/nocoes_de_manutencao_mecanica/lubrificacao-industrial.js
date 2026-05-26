@@ -58,18 +58,18 @@ const ASSUNTO_LUBRIFICACAO_INDUSTRIAL = {
   descricao:
     "Conceitos básicos sobre lubrificação industrial, tipos de lubrificantes, propriedades dos óleos e aplicações das graxas.",
 
-  resumoRapido: `Lubrificação industrial é a aplicação controlada de substâncias lubrificantes entre partes móveis de máquinas para reduzir atrito, desgaste e aquecimento.
+  resumoRapido: `Lubrificação industrial é a aplicação controlada de fluidos ou substancias ente as partes móveis de maquinários para reduzir atrito, desgaste e aquecimento.
 
 Os principais lubrificantes são:
 • Óleos lubrificantes
 • Graxas lubrificantes
 
 Funções da lubrificação:
-• reduzir atrito e desgaste
-• controlar temperatura
-• proteger contra corrosão
-• reduzir ruídos
-• auxiliar na limpeza e vedação
+1. reduzir atrito e desgaste (limalha)
+2. controlar temperatura
+3. proteger contra corrosão
+4. limpeza e vedação
+5. redução de ruídos
 
 Tipos de óleo:
 • mineral
@@ -77,13 +77,16 @@ Tipos de óleo:
 • semissintético
 
 Características importantes:
-• viscosidade
-• densidade
-• ponto de fulgor
-• ponto de combustão
-• ponto de fluidez
-• acidez
-• demulsibilidade`,
+1. viscosidade
+2. densidade
+3. ponto de fulgor
+4. ponto de combustão
+5. ponto de fluidez
+6. cristalização
+7. ponto de névoa
+8. acidez
+9. alcalinidade
+10. demulsibilidade`,
 
   resumoDetalhado: [
     {
@@ -97,10 +100,8 @@ Características importantes:
         "Lubrificação industrial é a aplicação controlada de fluidos ou substâncias lubrificantes entre partes móveis de máquinas e equipamentos. Seu objetivo é reduzir o atrito, diminuir o desgaste e aumentar a vida útil dos componentes mecânicos."
     },
 
-    {
-      tipo: "imagem",
-      conteudo:
-        "industrial machine lubrication maintenance oil gears bearings"
+    { 
+      tipo: "imagem-url", conteudo: "https://gesrepair.com/wp-content/uploads/shutterstock_1846832668.jpg" 
     },
 
     {
@@ -111,7 +112,7 @@ Características importantes:
     {
       tipo: "paragrafo",
       conteudo:
-        "• Redução do atrito e desgaste entre peças móveis\n• Controle da temperatura\n• Proteção contra corrosão e oxidação\n• Redução de ruídos\n• Limpeza interna do sistema\n• Auxílio na vedação de componentes"
+        "1. reduzir atrito e desgaste (limalha)\n2. controlar temperatura\n3. proteger contra corrosão\n4. limpeza e vedação\n5. redução de ruídos"
     },
 
     {
@@ -144,14 +145,10 @@ Características importantes:
     {
       tipo: "paragrafo",
       conteudo:
-        "• Óleo mineral: derivado do refino do petróleo. Possui menor custo, porém contém mais impurezas e menor estabilidade.\n\n• Óleo sintético: produzido em laboratório. Possui maior pureza, desempenho e resistência térmica.\n\n• Óleo semissintético: mistura entre óleo mineral e sintético, oferecendo equilíbrio entre desempenho e custo."
+        "• Óleo mineral: derivado do refino do petróleo. Possui menor custo, porém contém mais impurezas e menor estabilidade.\n• Óleo sintético: produzido em laboratório. Possui maior pureza, desempenho e resistência térmica.\n• Óleo semissintético: mistura entre óleo mineral e sintético, oferecendo equilíbrio entre desempenho e custo."
     },
 
-    {
-      tipo: "imagem",
-      conteudo:
-        "industrial lubricating oils mineral synthetic comparison"
-    },
+    { tipo: "imagem-url", conteudo: "https://www.maconresearch.com/hs-fs/hub/399257/file-2081002402.png" },
 
     {
       tipo: "titulo",
@@ -161,7 +158,7 @@ Características importantes:
     {
       tipo: "paragrafo",
       conteudo:
-        "• Viscosidade: resistência do óleo ao escoamento.\n\n• Densidade: massa em determinada unidade de volume.\n\n• Ponto de fulgor: temperatura em que o óleo libera vapores inflamáveis.\n\n• Ponto de combustão: temperatura em que o óleo entra em combustão contínua.\n\n• Ponto de fluidez: menor temperatura em que o óleo ainda consegue escoar.\n\n• Cristalização: temperatura em que o óleo começa a solidificar.\n\n• Ponto de névoa: formação de partículas de óleo suspensas no ar.\n\n• Acidez: presença de componentes ácidos no óleo.\n\n• Alcalinidade: capacidade de neutralizar ácidos.\n\n• Demulsibilidade: capacidade do óleo de se separar da água."
+        "1. Viscosidade: resistência do óleo ao escoamento.\n2. Densidade: massa em determinada unidade de volume.\n3. Ponto de fulgor: temperatura em que o óleo libera vapores inflamáveis.\n4. Ponto de combustão: temperatura em que o óleo entra em combustão contínua.\n5. Ponto de fluidez: menor temperatura em que o óleo ainda consegue escoar.\n6. Cristalização: temperatura em que o óleo começa a solidificar.\n7. Ponto de névoa: formação de partículas de óleo suspensas no ar.\n8. Acidez: presença de componentes ácidos no óleo.\n9. Alcalinidade: capacidade de neutralizar ácidos.\n10. Demulsibilidade: capacidade do óleo de se separar da água."
     },
 
     {
@@ -175,11 +172,7 @@ Características importantes:
         "As graxas lubrificantes são substâncias semissólidas compostas por óleo base, espessantes e aditivos. São utilizadas em locais onde o óleo líquido não permanece adequadamente."
     },
 
-    {
-      tipo: "imagem",
-      conteudo:
-        "industrial grease lubrication bearings machinery"
-    },
+    { tipo: "imagem-url", conteudo: "https://www.micro-lube.com/wp-content/webp-express/webp-images/uploads/2024/04/Bearing-Lubrication.jpg.webp" },
 
     {
       tipo: "titulo",
@@ -201,12 +194,6 @@ Características importantes:
       tipo: "paragrafo",
       conteudo:
         "A cor da graxa não segue uma padronização universal, variando conforme o fabricante. Porém, algumas cores costumam ser associadas a determinadas aplicações:\n\n• Vermelha: altas temperaturas e alta pressão\n• Azul: maior resistência à água\n• Verde: alta velocidade e resistência à oxidação\n• Branca: indústria alimentícia\n• Amarela: aplicações em temperaturas extremas\n• Preta ou marrom: cargas pesadas"
-    },
-
-    {
-      tipo: "video",
-      conteudo:
-        "https://www.youtube.com/embed/I7mA7D8x6l8"
     }
   ],
 
@@ -272,7 +259,7 @@ Características importantes:
     }
   ],
 
-  relacionados: [
+  /*relacionados: [
     {
       area: "nocoes_de_manutencao_mecanica",
       id: "rolamentos",
@@ -288,7 +275,7 @@ Características importantes:
       motivo:
         "Lubrificantes ajudam na proteção contra corrosão."
     }
-  ],
+  ],*/
 
   videoaulas: [
     {

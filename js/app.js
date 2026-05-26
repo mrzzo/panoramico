@@ -247,6 +247,9 @@ function renderResumoDetalhado(dados) {
       div.innerHTML = `<span class="img-loading">🖼️ Carregando imagem...</span>`
       buscarImagem(bloco.conteudo, div)
 
+    } else if (bloco.tipo === 'imagem-url') {
+      div.className = 'bloco-imagem'
+      div.innerHTML = `<img src="${bloco.conteudo}" alt="imagem" loading="lazy" />`
     } else if (bloco.tipo === 'video') {
       div.className = 'bloco-video'
       div.innerHTML = `<iframe src="${bloco.conteudo}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`

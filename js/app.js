@@ -250,6 +250,7 @@ function renderResumoDetalhado(dados) {
     } else if (bloco.tipo === 'imagem-url') {
       div.className = 'bloco-imagem'
       div.innerHTML = `<img src="${bloco.conteudo}" alt="imagem" loading="lazy" />`
+      
     } else if (bloco.tipo === 'video') {
       div.className = 'bloco-video'
       div.innerHTML = `<iframe src="${bloco.conteudo}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
@@ -287,25 +288,19 @@ function renderResumoDetalhado(dados) {
       el.appendChild(a)
     })
   }
-}
+} //busca imagem via Wikimedia Commons (sem API key, CORS-free)
 
-// busca imagem via Wikimedia Commons (sem API key, CORS-free)
-async function buscarImagem(query, container) {
-  try {
-    const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrnamespace=6&prop=imageinfo&iiprop=url|mime&format=json&origin=*&gsrlimit=3`
-    const res  = await fetch(url)
-    const data = await res.json()
-    const pages = Object.values(data?.query?.pages || {})
-    const img   = pages.find(p => p.imageinfo?.[0]?.mime?.startsWith('image/jpeg') || p.imageinfo?.[0]?.mime?.startsWith('image/png'))
-    if (img) {
-      const src = img.imageinfo[0].url
-      container.innerHTML = `<img src="${src}" alt="${query}" loading="lazy" />`
-    } else {
-      container.innerHTML = `<span class="img-loading" style="color:var(--t3);font-size:12px;">Imagem não encontrada</span>`
-    }
-  } catch {
-    container.innerHTML = `<span class="img-loading" style="color:var(--t3);font-size:12px;">Imagem não disponível</span>`
-  }
+function buscarImagem(query, container) {
+  // Unsplash source — imagem direta pela query, sem API key
+  const src = `https://source.unsplash.com/800x400/?${encodeURIComponent(query)}`
+  const img = document.createElement("img")
+  img.alt = query
+  img.loading = "lazy"
+  img.style.cssText = "width:100%;height:auto;display:block;"
+  img.onload  = () => { container.innerHTML = ""; container.appendChild(img) }
+  img.onerror = () => {
+  container.innerHTML = "<span class='img-loading' style='color:var(--t3);font-size:12px;'>Imagem não disponível</span>"
+}
 }
 
 // ---- FLASHCARDS (campo separado, sorteio) ----
@@ -354,7 +349,11 @@ function renderSimulado(dados) {
     el.innerHTML = '<p style="color:var(--t3);text-align:center;padding:40px 0;">Sem simulado ainda.</p>'
     return
   }
-  simuladoState = { dados, respostas: new Array(dados.simulado.length).fill(null) }
+  // Carrega respostas salvas (persistência entre reloads)
+  const chaveSimulado = `simulado_${dados.area}_${dados.id}`
+  const salvas = carregarSimulado(chaveSimulado)
+  const respostas = salvas || new Array(dados.simulado.length).fill(null)
+  simuladoState = { dados, respostas, chave: chaveSimulado }
 
   const acoes = document.createElement('div')
   acoes.className = 'simulado-acoes'
@@ -385,6 +384,31 @@ function renderSimulado(dados) {
     <p class="res-txt" id="res-txt"></p>
     <button class="btn-refazer" style="margin-top:16px" onclick="reiniciarSimulado()">↺ Tentar novamente</button>`
   el.appendChild(res)
+
+  // Restaurar respostas salvas visualmente
+  if (salvas) {
+    salvas.forEach((ai, qi) => {
+      if (ai === null) return
+      const q = dados.simulado[qi]
+      q.alternativas.forEach((_, i) => {
+        const btn = document.getElementById(`alt-${qi}-${i}`)
+        if (!btn) return
+        btn.disabled = true
+        if (i === q.correta) btn.classList.add('correta')
+        else if (i === ai)   btn.classList.add('errada')
+      })
+      const exp = document.getElementById(`exp-${qi}`)
+      if (exp) exp.classList.add('vis')
+    })
+    // Mostrar resultado se todas respondidas
+    if (salvas.every(r => r !== null)) {
+      const acertos = salvas.filter((r,i) => r === dados.simulado[i].correta).length
+      const pct = Math.round(acertos / salvas.length * 100)
+      document.getElementById('res-nota').textContent = `${pct}%`
+      document.getElementById('res-txt').textContent  = `${acertos} de ${salvas.length} corretas`
+      document.getElementById('resultado').classList.add('vis')
+    }
+  }
 }
 
 function responder(qi, ai) {
@@ -398,6 +422,7 @@ function responder(qi, ai) {
     else if (i === ai)   btn.classList.add('errada')
   })
   document.getElementById(`exp-${qi}`).classList.add('vis')
+  salvarSimulado(simuladoState.chave, simuladoState.respostas)
   const rs = simuladoState.respostas
   if (rs.every(r => r !== null)) {
     const acertos = rs.filter((r,i) => r === simuladoState.dados.simulado[i].correta).length
@@ -409,7 +434,9 @@ function responder(qi, ai) {
 }
 
 function reiniciarSimulado() {
-  if (simuladoState.dados) renderSimulado(simuladoState.dados)
+  if (!simuladoState.dados) return
+  limparSimulado(simuladoState.chave)
+  renderSimulado(simuladoState.dados)
 }
 
 // ---- BOTÃO MARCAR VISTO ----
@@ -437,4 +464,5 @@ function ativarTab(nome) {
   document.querySelectorAll('.tab-painel').forEach(p => p.classList.remove('ativo'))
   document.getElementById(`tab-btn-${nome}`)?.classList.add('ativo')
   document.getElementById(`tab-${nome}`)?.classList.add('ativo')
+  window.scrollTo({ top: 200, behavior: 'smooth' })
 }

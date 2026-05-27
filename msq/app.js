@@ -1,11 +1,13 @@
 const listaAssuntos = document.getElementById('lista-assuntos')
+  topo.className = 'card'
+
+  topo.innerHTML = `
     <h2>${dados.nome}</h2>
     <p>${dados.descricao}</p>
   `
 
-  conteudoAssunto.appendChild(card)
+  conteudoAssunto.appendChild(topo)
 
-  // resumo rápido
   if (dados.resumoRapido) {
 
     const resumo = document.createElement('div')
@@ -13,26 +15,26 @@ const listaAssuntos = document.getElementById('lista-assuntos')
 
     resumo.innerHTML = `
       <h2>Resumo Rápido</h2>
-      <p>${dados.resumoRapido.replaceAll('\n', '<br>')}</p>
+      <p>${dados.resumoRapido.replace(/
+/g, '<br>')}</p>
     `
 
     conteudoAssunto.appendChild(resumo)
   }
 
-  // resumo detalhado
   if (Array.isArray(dados.resumoDetalhado)) {
 
     dados.resumoDetalhado.forEach(bloco => {
 
-      const secao = document.createElement('div')
-      secao.className = 'card'
+      const card = document.createElement('div')
+      card.className = 'card'
 
       if (bloco.tipo === 'titulo') {
-        secao.innerHTML = `<h2>${bloco.conteudo}</h2>`
+        card.innerHTML = `<h2>${bloco.conteudo}</h2>`
       }
 
       if (bloco.tipo === 'texto') {
-        secao.innerHTML = `<p>${bloco.conteudo}</p>`
+        card.innerHTML = `<p>${bloco.conteudo}</p>`
       }
 
       if (bloco.tipo === 'lista') {
@@ -41,14 +43,14 @@ const listaAssuntos = document.getElementById('lista-assuntos')
           .map(item => `<li>${item}</li>`)
           .join('')
 
-        secao.innerHTML = `
+        card.innerHTML = `
           <ul class="lista-topicos">
             ${itens}
           </ul>
         `
       }
 
-      conteudoAssunto.appendChild(secao)
+      conteudoAssunto.appendChild(card)
     })
   }
 }

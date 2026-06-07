@@ -53,7 +53,7 @@ const CONTENT_GROUPS = [
       './data/historia/revolucao-francesa.js',
     ]
   },
-  {
+  /*{
     key: 'historia',
     label: 'História',
     files: [
@@ -70,13 +70,33 @@ const CONTENT_GROUPS = [
       './data/historia/matematica-antiga.js',
       './data/historia/revolucao-francesa.js',
     ]
-  },
+  },*/
   {
     key: 'nocoes_de_manutencao_mecanica',
     label: 'Noções de Manutenção Mecânica',
     files: [
       './data/nocoes_de_manutencao_mecanica/index.js',
       './data/nocoes_de_manutencao_mecanica/lubrificacao-industrial.js',
+    ]
+  },
+  {
+    key: 'controle_da_producao',
+    label: 'Controle da Produção',
+    files: [
+      './data/controle_da_producao/index.js',
+      './data/controle_da_producao/controle-da-producao.js',
+    ]
+  },
+  {
+    key: 'banco_de_dados',
+    label: 'Banco de Dados',
+    files: [
+      './data/banco_de_dados/index.js',
+      './data/banco_de_dados/sistemas-de-banco-de-dados.js',
+      './data/banco_de_dados/modelagem-conceitual.js',
+      './data/banco_de_dados/modelagem-logica-e-fisica.js',
+      './data/banco_de_dados/postgresql.js',
+      './data/banco_de_dados/mysql.js',
     ]
   },
   // ── ADICIONE NOVAS ÁREAS AQUI ──

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
+/* ── TEMA ESCURO (padrão) ── */
 :root {
   --bg:       #0c0c0e;
   --bg2:      #141418;
@@ -31,6 +32,31 @@
   --topbar-h: 52px;
 }
 
+/* ── TEMA CLARO ── */
+[data-tema="claro"] {
+  --bg:       #f5f3ef;
+  --bg2:      #eeebe5;
+  --bg3:      #e5e1d9;
+  --bg4:      #dbd7ce;
+  --borda:    #ccc8bf;
+  --borda2:   #b8b3a8;
+
+  --t1: #1a1815;
+  --t2: #4a4640;
+  --t3: #8a857e;
+
+  --acento:    #8a6a1a;
+  --acento2:   #6b5014;
+  --acento-bg: rgba(138,106,26,0.08);
+
+  --verde:    #166534;
+  --verde-bg: rgba(22,101,52,0.08);
+  --verde-bd: rgba(22,101,52,0.22);
+
+  --vermelho:    #b91c1c;
+  --vermelho-bg: rgba(185,28,28,0.08);
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
 
@@ -59,7 +85,7 @@ a { color: inherit; text-decoration: none; }
 .hotbar {
   position: fixed; bottom: 0; left: 0; right: 0;
   height: var(--hotbar-h);
-  background: rgba(12,12,14,0.96);
+  background: var(--bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--borda);
@@ -91,7 +117,7 @@ a { color: inherit; text-decoration: none; }
 .topbar {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--topbar-h);
-  background: rgba(12,12,14,0.96);
+  background: var(--bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--borda);

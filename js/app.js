@@ -466,3 +466,51 @@ function ativarTab(nome) {
   document.getElementById(`tab-${nome}`)?.classList.add('ativo')
   window.scrollTo({ top: 200, behavior: 'smooth' })
 }
+
+// =============================================
+// TEMA CLARO / ESCURO
+// =============================================
+
+const TEMA_KEY = 'panoramico_tema'
+
+function initTema() {
+  // 1. Verifica preferência salva manualmente
+  const salvo = localStorage.getItem(TEMA_KEY)
+  if (salvo) {
+    aplicarTema(salvo, false)
+    return
+  }
+  // 2. Nada salvo — usa preferência do sistema
+  const prefereClaro = window.matchMedia('(prefers-color-scheme: light)').matches
+  aplicarTema(prefereClaro ? 'claro' : 'escuro', false)
+
+  // 3. Escuta mudanças do sistema (só enquanto não houver preferência manual)
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    if (!localStorage.getItem(TEMA_KEY)) {
+      aplicarTema(e.matches ? 'claro' : 'escuro', false)
+    }
+  })
+}
+
+function aplicarTema(tema, salvar = true) {
+  if (tema === 'claro') {
+    document.documentElement.setAttribute('data-tema', 'claro')
+    document.getElementById('tema-ico').textContent = '☀️'
+    document.getElementById('tema-txt').textContent = 'Claro'
+  } else {
+    document.documentElement.removeAttribute('data-tema')
+    document.getElementById('tema-ico').textContent = '🌙'
+    document.getElementById('tema-txt').textContent = 'Escuro'
+  }
+  if (salvar) {
+    localStorage.setItem(TEMA_KEY, tema)
+  }
+}
+
+function alternarTema() {
+  const atual = document.documentElement.getAttribute('data-tema')
+  aplicarTema(atual === 'claro' ? 'escuro' : 'claro')
+}
+
+// Inicia o tema antes do DOMContentLoaded para evitar flash
+initTema()

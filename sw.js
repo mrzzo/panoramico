@@ -3,7 +3,7 @@
 // Versão do cache: incrementar ao atualizar arquivos
 // =============================================
 
-const CACHE_VERSION = 'v1'
+const CACHE_VERSION = 'v2'
 const CACHE_SHELL   = `panoramico-shell-${CACHE_VERSION}`
 const CACHE_CONTENT = `panoramico-content-${CACHE_VERSION}`
 
@@ -147,26 +147,37 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url)
 
-  // Ignora requisições que não são GET ou são de outras origens (ex: Unsplash)
   if (event.request.method !== 'GET') return
   if (url.origin !== location.origin && !url.hostname.includes('fonts.g')) return
 
+  // HTML e JS: network-first — sempre tenta pegar versão nova
+  const isHtmlOrJs = url.pathname.endsWith('.html') ||
+                     url.pathname.endsWith('.js')   ||
+                     url.pathname === '/'
+
+  if (isHtmlOrJs) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Atualiza o cache com a versão nova
+          const clone = response.clone()
+          caches.open(CACHE_CONTENT).then(c => c.put(event.request, clone))
+          return response
+        })
+        .catch(() => caches.match(event.request)) // offline: usa cache
+    )
+    return
+  }
+
+  // CSS, imagens, fontes: cache-first
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached
       return fetch(event.request).then(response => {
-        // Cacheia automaticamente arquivos de dados se a resposta for ok
-        if (response.ok && url.pathname.startsWith('/data/')) {
-          const clone = response.clone()
-          caches.open(CACHE_CONTENT).then(cache => cache.put(event.request, clone))
-        }
+        const clone = response.clone()
+        caches.open(CACHE_CONTENT).then(c => c.put(event.request, clone))
         return response
-      }).catch(() => {
-        // Offline e sem cache — retorna página principal como fallback
-        if (event.request.destination === 'document') {
-          return caches.match('./index.html')
-        }
-      })
+      }).catch(() => caches.match('./index.html'))
     })
   )
 })
